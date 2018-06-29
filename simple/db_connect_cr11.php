@@ -10,6 +10,7 @@ define('DBNAME', 'cr11_ivan_zykov_php_car_rental');
 
 $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 
+//Check connection
 if ($mysqli->connect_error) {
 	die('Connection failed: ' . $mysqli->connect_errno . $mysqli->connect_error);
 } else {
