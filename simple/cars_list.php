@@ -5,8 +5,8 @@ ob_start();
 //Include DB connection
 require_once('db_connect_cr11.php');
 
-$sql = "SELECT street, house, postal_code
-				FROM offices;";
+$sql = "SELECT brand, model
+				FROM cars";
 
 $result = $mysqli->query($sql);
 
@@ -17,10 +17,10 @@ require_once('ivansFunctions.php');
 if (!$result) {
 	ivansEchoError ($mysqli, $sql); //echo info about errors
 } else {
-	$offices = $result->fetch_all(MYSQLI_ASSOC);
+	$cars = $result->fetch_all(MYSQLI_ASSOC);
 }
 
-//var_dump($offices);
+//var_dump($cars);
 
 //Close connection, free result
 $result->free();
@@ -30,25 +30,24 @@ $mysqli->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Our offices</title>
+	<title>Cars list</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 	<table>
-		<caption>Our offices in Vienna</caption>
+		<caption>Our fleet</caption>
 		<thead>
 			<tr>
-				<th>Street</th>
-				<th>House</th>
-				<th>Postal code</th>
+				<th>Brand</th>
+				<th>Model</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php
-			foreach ($offices as $anOffice) {
+			foreach ($cars as $aCar) {
 				echo "<tr>";
-				foreach ($anOffice as $feature) {
-					echo "<td>". $feature . "</td>";
+				foreach ($aCar as $feature) {
+					echo "<td>" . $feature . "</td>";
 				}
 				echo "</tr>";
 			}
