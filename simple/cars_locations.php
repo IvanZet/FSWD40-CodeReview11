@@ -87,7 +87,8 @@ $mysqli->close();
 	</section>
 	<main>
 		<h2>Cars in offices</h2>
-		<select name="">
+		<select name="office" id="office" onchange="filter()">
+			<option value="all">--all--</option>
 			<?php 
 			foreach ($offices as $row) {?>
 				<option value="<?php echo $row['office_id']; ?>"><?php echo $row['street'] . " " . $row['house'] ?></option>
@@ -102,7 +103,7 @@ $mysqli->close();
 					<th>Office address</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="table">
 				<?php
 				foreach ($carsLocations as $row) {
 					echo "<tr>
@@ -114,5 +115,6 @@ $mysqli->close();
 			</tbody>
 		</table>
 	</main>
+	<script src="filter.js"></script>
 </body>
 </html>
