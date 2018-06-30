@@ -1,0 +1,31 @@
+
+body {
+	font-family: corbel, calibri, sans-serif;
+}
+	nav {
+	margin-left: -40px;
+}
+	ul {
+	list-style-type: none;
+	display: inline-block;	
+}
+a {
+	text-transform: uppercase;
+	text-decoration: none;
+	color: black;
+}
+body {
+	margin-left: 30px;
+}
+caption {
+	margin-top: 20px;
+}
+table, th, td {
+	border:  1px solid black;
+}
+th, td {
+	padding: 5px;
+}
+table {
+	border-collapse: collapse;
+}

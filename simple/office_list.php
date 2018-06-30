@@ -31,29 +31,48 @@ $mysqli->close();
 <html lang="en">
 <head>
 	<title>Our offices</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="icon" type="image/x-icon" href="car-114-232990.png">
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<table>
-		<caption>Our offices in Vienna</caption>
-		<thead>
-			<tr>
-				<th>Street</th>
-				<th>House</th>
-				<th>Postal code</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
-			foreach ($offices as $anOffice) {
-				echo "<tr>";
-				foreach ($anOffice as $feature) {
-					echo "<td>". $feature . "</td>";
+	<header>
+		<nav>
+			<ul>
+				<li><a href="office_list.php" title="">Offices</a></li>
+			</ul>
+			<ul>
+				<li><a href="cars_list.php" title="">Cars</a></li>
+			</ul>
+			<ul>
+				<li><a href="cars_locations.php" title="">Location of cars</a></li>
+			</ul>
+			<ul>
+				<li><a href="#" title="">Log out</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<table>
+			<caption>Our offices in Vienna</caption>
+			<thead>
+				<tr>
+					<th>Street</th>
+					<th>House</th>
+					<th>Postal code</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				foreach ($offices as $anOffice) {
+					echo "<tr>";
+					foreach ($anOffice as $feature) {
+						echo "<td>". $feature . "</td>";
+					}
+					echo "</tr>";
 				}
-				echo "</tr>";
-			}
-			?>
-		</tbody>
-	</table>
+				?>
+			</tbody>
+		</table>
+	</main>
 </body>
 </html>
