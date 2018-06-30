@@ -2,13 +2,9 @@
 ob_start();
 session_start();
 
-if (isset($_SESSION['user'])) {
-	header ('Location: cars_locations.php');
-}
-
 //Check if user has already sugned in
 if(isset($_SESSION['user'])) {
-	header('Location: big_list_boot.php');
+	header('Location: cars_locations.php');
 	exit;
 }
 
@@ -18,8 +14,8 @@ $error = false;
 $errorMsg = '';
 if(isset($_POST['btn-signUp'])) {
 	//Read input fields
-	$first_name = mysqli_real_escape_string($mysqli, $_POST['first_name']);
-	$last_name = mysqli_real_escape_string($mysqli, $_POST['last_name']);
+	$first_name = mysqli_real_escape_string($mysqli, $_POST['firstName']);
+	$last_name = mysqli_real_escape_string($mysqli, $_POST['lastName']);
 	$email = mysqli_real_escape_string($mysqli, $_POST['email']);
 	$pass = mysqli_real_escape_string($mysqli, $_POST['pass']);
 
@@ -91,7 +87,7 @@ if(isset($_POST['btn-signUp'])) {
 
 	//Check for errors and save to DB a new user
 	if(!$error) {
-		echo 'No errors!';
+		//echo 'No errors!';
 		$sql = "INSERT INTO users (first_name, last_name, email, pass)
 						VALUES 						('$first_name', '$last_name', '$email', '$pass')";
 		$result = $mysqli->real_query($sql);
@@ -110,7 +106,7 @@ if(isset($_POST['btn-signUp'])) {
 
 //Free $result, close $mysqli
 if (isset($result)) {
-	$result->free();
+	unset($result);
 }
 if (isset($mysqli)) {
 	$mysqli->close();
@@ -129,33 +125,19 @@ if (isset($mysqli)) {
 			<ul>
 				<li><a href="index.php" title="">Sign in</a></li>
 			</ul>
-			<ul>
-				<li><a href="office_list.php" title="">Offices</a></li>
-			</ul>
-			<ul>
-				<li><a href="cars_list.php" title="">Cars</a></li>
-			</ul>
-			<ul>
-				<li><a href="cars_locations.php" title="">Location of cars</a></li>
-			</ul>
-			<ul>
-				<li><a href="#" title="">Log out</a></li>
-			</ul>
-		</nav>
 	</header>
 	<main>
 		<fieldset>
-			<legend>Fill in the form to sign up</legend>
+			<legend>Fill in the form to sign up or sign in above</legend>
 			<form action="sign_up.php" method="POST">
 				<label>First name: <input type="text" name="firstName"></label><br>
 				<label>Last name: <input type="text" name="lastName"></label><br>
-				<label>Email: <input type="email" name="email"></label><br>
+				<label>Email: <input type="text" name="email"></label><br>
 				<br>
 				<label>Password: <input type="password" name="pass"></label><br>
-				<input type="button" name="btn-signUp" value="Sign Up">
+				<input type="submit" name="btn-signUp" value="Sign Up">
 			</form>
 		</fieldset>
-		<p>Use email: admin@gmail.com<br>and password: 123456<br>to login as administrator</p>
 	</main>
 </body>
 </html>

@@ -1,5 +1,13 @@
-<?php 
+<?php
+
 ob_start();
+session_start();
+
+//Redirect a not logged in user
+if (!isset($_SESSION['user'])) {
+	header('Location: index.php');
+	exit;
+}
 
 //Include DB connection
 require_once('db_connect_cr11.php');
@@ -62,17 +70,27 @@ $mysqli->close();
 			<ul>
 				<li><a href="cars_locations.php" title="">Location of cars</a></li>
 			</ul>
+			<?php
+			if ($_SESSION['isAdmin']) {//Show only for admins
+				echo '<ul>
+								<li><a href="report.php" title="">Report</a></li>
+							</ul>';
+			}
+			?>
 			<ul>
-				<li><a href="#" title="">Log out</a></li>
+				<li><a href="log_out.php?logout" title="">Log out</a></li>
 			</ul>
 		</nav>
 	</header>
+	<section>
+		<p>Logged in as: <?php echo $_SESSION['email']; ?></p>
+	</section>
 	<main>
 		<h2>Cars in offices</h2>
 		<select name="">
 			<?php 
 			foreach ($offices as $row) {?>
-				<option value="<?php echo $row['office_id'] ?>"><?php echo $row['street'] . " " . $row['house'] ?></option>
+				<option value="<?php echo $row['office_id']; ?>"><?php echo $row['street'] . " " . $row['house'] ?></option>
 			<?php
 			}
 			?>

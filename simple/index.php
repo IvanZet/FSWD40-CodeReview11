@@ -37,7 +37,7 @@ if (isset($_POST['btn_login'])) {
 	if (!$error) {
 		$pass = hash('sha256', $pass);
 
-		$sql = "SELECT user_id, email, pass
+		$sql = "SELECT user_id, email, pass, is_admin
 						FROM users
 						WHERE email = '$email';";
 
@@ -47,9 +47,11 @@ if (isset($_POST['btn_login'])) {
 		if (is_object($result)) {
 			$count = mysqli_num_rows($result);
 			if($count != 0) {
-				$user = $resul->fetcht_all(MYSQLI_ASSOC);
+				$user = $result->fetch_all(MYSQLI_ASSOC);
 				if ($count == 1 && $user[0]['pass'] == $pass) {//If a single user found and password matches
 					$_SESSION['user'] = $user[0]['user_id'];
+					$_SESSION['isAdmin'] = $user[0]['is_admin'];
+					$_SESSION['email'] = $user[0]['email'];
 					header ('Location: cars_locations.php');
 				} else {
 					echo 'Password wrong, try again!';
@@ -58,12 +60,14 @@ if (isset($_POST['btn_login'])) {
 				echo 'No user with such email found!';
 			}
 		} else {
-		echo 'Something went wwong, try again!';	
+		echo 'Something went wrong, try again!';	
 		}	
 	} else {//If invalid email or password was input
 		echo $errorMsg;
 	}
 }
+
+//var_dump($_SESSION['user']);
 
 if (isset($result)) {
 	$result->free();
@@ -86,18 +90,6 @@ if (isset($mysqli)) {
 			<ul>
 				<li><a href="sign_up.php" title="">Sign up</a></li>
 			</ul>
-			<ul>
-				<li><a href="office_list.php" title="">Offices</a></li>
-			</ul>
-			<ul>
-				<li><a href="cars_list.php" title="">Cars</a></li>
-			</ul>
-			<ul>
-				<li><a href="cars_locations.php" title="">Location of cars</a></li>
-			</ul>
-			<ul>
-				<li><a href="#" title="">Log out</a></li>
-			</ul>
 		</nav>
 	</header>
 	<main>
@@ -105,12 +97,13 @@ if (isset($mysqli)) {
 			<legend>Sing In or click Sign Up above</legend>
 			<form action="index.php" method="POST">
 				<label for="inputEmail">Email address</label>
-	      <input type="email" name="email" id="inputEmail" autocomplete="on" autofocus><br>
+	      <input type="text" name="email" id="inputEmail" autocomplete="on" autofocus><br>
 	      <label for="inputPassword">Password</label>
-	      <input type="password" name="pass" id="inputPassword" autocomplete="on"><br>
+	      <input type="text" name="pass" id="inputPassword" autocomplete="on"><br>
 	      <button type="submit" name="btn_login">Sign in</button>
 			</form>
 		</fieldset>
+		<p>Use email: admin@gmail.com<br>and password: 123456<br>to login as <strong>administrator</strong></p>
 	</main>
 </body>
 </html>
