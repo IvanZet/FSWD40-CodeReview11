@@ -19,3 +19,6 @@ The page displays all the cars available for booking and in which office they ar
 Here one can see, how many cars are available for booking per each office.
 #### Log out
 A user can log out
+## Features to be emplemented
+* Improve database security (injections)
+* Improve user management security
